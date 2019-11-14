@@ -43,14 +43,6 @@ class App extends Component {
     }
   }
 
-
-
-  // handleDeleteItem = (item) => {
-  //   const newItems = this.state.shoppingItems.filter(itm => itm !== item)
-  //   this.setState({
-  //     shoppingItems: newItems
-  //   })
-  // }
   omit = (obj, keyToOmit) => {
     return Object.entries(obj).reduce(
       (newObj, [key, value]) =>
@@ -61,21 +53,16 @@ class App extends Component {
 
   deleteCard = (id) => {
     const { lists, allCards } = this.state;
-    //delete id from cardIds for each of the lists
-    //use filter method on array (see example above)
+
     const newLists = lists.map((list) => {
       list.cardIds = list.cardIds.filter(cardId => cardId !== id);
       return list;
     });
-    //delete key value pair from allcards
-    //use omit function (see example from curriculum hints)
     const newCards = this.omit(allCards, id);
     this.setState({
       lists: newLists,
       allCards: newCards
     })
-    console.log(newCards);
-    console.log(newLists);
   }
 
   newRandomCard = () => {
@@ -91,49 +78,44 @@ class App extends Component {
   generateRandomCard = (id) => {
     const { lists, allCards } = this.state;
     const newCardData = this.newRandomCard();
-    const newCard = { [newCardData.id]: newCardData };
-    
-    const listToUpdate = lists.find((list, id) => (list.id === id));
-    listToUpdate.cardIds.push(newCardData.id);
-      //use this to update = newCardData.id  
 
-      //list.cardIds = list.cardIds.filter(cardId => cardId !== id);
-      
-      
-      return list;
-    });
+    const listToUpdate = lists.find(list => list.id === id);
+
+    listToUpdate.cardIds.push(newCardData.id);
+
+    const updatedLists = lists
 
     this.setState({
-      lists: updatedList,
-      allCards: {
-        ...allCards,
-        newCard
-      }
-    });
+    lists: updatedLists,
+    allCards: {
+      ...allCards,
+      [newCardData.id]: newCardData
+    }
+  });
   }
 
-  render() {
-    const { lists, allCards } = this.state;
-    return (
-      <main className="App">
-        <header className="App-header">
-          <h1>Trelloyes!</h1>
-        </header>
-        <div className="App-list">
-          {lists.map(list => (
-            <List
-              key={list.id}
-              id={list.id}
-              header={list.header}
-              cards={list.cardIds.map(id => allCards[id])}
-              deleteCardProp={this.deleteCard}
-              generateRandomCard={this.generateRandomCard}
-            />
-          ))}
-        </div>
-      </main>
-    );
-  }
+render() {
+  const { lists, allCards } = this.state;
+  return (
+    <main className="App">
+      <header className="App-header">
+        <h1>Trelloyes!</h1>
+      </header>
+      <div className="App-list">
+        {lists.map(list => (
+          <List
+            key={list.id}
+            id={list.id}
+            header={list.header}
+            cards={list.cardIds.map(id => allCards[id])}
+            deleteCardProp={this.deleteCard}
+            generateRandomCard={this.generateRandomCard}
+          />
+        ))}
+      </div>
+    </main>
+  );
+}
 }
 
 export default App;
