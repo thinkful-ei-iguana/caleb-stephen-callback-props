@@ -8,7 +8,7 @@ class App extends Component {
       {
         id: '1',
         header: 'First list',
-        cardIds: [ 'a', 'b', 'e', 'f', 'g', 'j', 'l', 'm' ],
+        cardIds: ['a', 'b', 'e', 'f', 'g', 'j', 'l', 'm'],
       },
       {
         id: '2',
@@ -18,12 +18,12 @@ class App extends Component {
       {
         id: '3',
         header: 'Third list',
-        cardIds: [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm' ],
+        cardIds: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'],
       },
       {
         id: '4',
         header: 'Fourth list',
-        cardIds: [ 'l', 'm' ],
+        cardIds: ['l', 'm'],
       },
     ],
     allCards: {
@@ -42,20 +42,43 @@ class App extends Component {
       'm': { id: 'm', title: 'Thirteenth card', content: 'lorem ipsum' },
     }
   }
-  
-// handleDeleteItem = (item) => {
-//   const newItems = this.state.shoppingItems.filter(itm => itm !== item)
-//   this.setState({
-//     shoppingItems: newItems
-//   })
-// }
+
+
+
+  // handleDeleteItem = (item) => {
+  //   const newItems = this.state.shoppingItems.filter(itm => itm !== item)
+  //   this.setState({
+  //     shoppingItems: newItems
+  //   })
+  // }
+  omit = (obj, keyToOmit) => {
+    return Object.entries(obj).reduce(
+      (newObj, [key, value]) =>
+        key === keyToOmit ? newObj : { ...newObj, [key]: value },
+      {}
+    );
+  }
 
   deleteCard = (id) => {
+    const { lists, allCards } = this.state;
     //delete id from cardIds for each of the lists
     //use filter method on array (see example above)
-
+    const newLists = lists.forEach(list => 
+    {list.cardIds.filter(cardId => {
+      console.log(cardId);
+      return cardId !== id
+    })
+      console.log(id);}
+    );
     //delete key value pair from allcards
     //use omit function (see example from curriculum hints)
+    const newCards = this.omit(allCards, id);
+    this.setState = {
+      lists: newLists,
+      allCards: newCards
+    }
+    console.log(newCards);
+    console.log(newLists);
   }
 
   render() {
@@ -71,6 +94,7 @@ class App extends Component {
               key={list.id}
               header={list.header}
               cards={list.cardIds.map(id => allCards[id])}
+              deleteCardProp={this.deleteCard}
             />
           ))}
         </div>

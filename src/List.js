@@ -14,9 +14,10 @@ const List = (props) => {
             key={card.id}
             title={card.title}
             content={card.content}
+            deleteCardProp={props.deleteCardProp}
           />  
         )}
-        <button type="button" class="List-add-button">
+        <button type="button" className="List-add-button">
           + Add Random Card
         </button>
       </div>  
