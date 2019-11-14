@@ -66,7 +66,7 @@ class App extends Component {
     const newLists = lists.map((list) => {
       list.cardIds = list.cardIds.filter(cardId => cardId !== id);
       return list;
-      });
+    });
     //delete key value pair from allcards
     //use omit function (see example from curriculum hints)
     const newCards = this.omit(allCards, id);
@@ -76,6 +76,40 @@ class App extends Component {
     })
     console.log(newCards);
     console.log(newLists);
+  }
+
+  newRandomCard = () => {
+    const id = Math.random().toString(36).substring(2, 4)
+      + Math.random().toString(36).substring(2, 4);
+    return {
+      id,
+      title: `Random Card ${id}`,
+      content: 'lorem ipsum',
+    }
+  }
+
+  generateRandomCard = (id) => {
+    const { lists, allCards } = this.state;
+    const newCardData = this.newRandomCard();
+    const newCard = { [newCardData.id]: newCardData };
+    
+    const listToUpdate = lists.find((list, id) => (list.id === id));
+    listToUpdate.cardIds.push(newCardData.id);
+      //use this to update = newCardData.id  
+
+      //list.cardIds = list.cardIds.filter(cardId => cardId !== id);
+      
+      
+      return list;
+    });
+
+    this.setState({
+      lists: updatedList,
+      allCards: {
+        ...allCards,
+        newCard
+      }
+    });
   }
 
   render() {
@@ -89,9 +123,11 @@ class App extends Component {
           {lists.map(list => (
             <List
               key={list.id}
+              id={list.id}
               header={list.header}
               cards={list.cardIds.map(id => allCards[id])}
               deleteCardProp={this.deleteCard}
+              generateRandomCard={this.generateRandomCard}
             />
           ))}
         </div>

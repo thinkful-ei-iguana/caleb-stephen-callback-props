@@ -18,7 +18,7 @@ const List = (props) => {
             deleteCardProp={props.deleteCardProp}
           />  
         )}
-        <button type="button" className="List-add-button">
+        <button type="button" className="List-add-button" onClick={() => {props.generateRandomCard(props.id)}}>
           + Add Random Card
         </button>
       </div>  
