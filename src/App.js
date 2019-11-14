@@ -60,26 +60,22 @@ class App extends Component {
   }
 
   deleteCard = (id) => {
-    console.log("id:", id);
     const { lists, allCards } = this.state;
     //delete id from cardIds for each of the lists
     //use filter method on array (see example above)
-    const newLists = lists.forEach(list => 
-    {list.cardIds.filter(cardId => {
-      //console.log("cardID:", cardId);
-      return cardId !== id
-    })
-      }
-    );
+    const newLists = lists.map((list) => {
+      const newList = list.cardIds.filter(cardId => cardId !== id)
+      return newList
+      });
     //delete key value pair from allcards
     //use omit function (see example from curriculum hints)
     const newCards = this.omit(allCards, id);
-    this.setState = {
+    this.setState({
       lists: newLists,
       allCards: newCards
-    }
-    // console.log(newCards);
-    // console.log(newLists);
+    })
+    console.log(newCards);
+    console.log(newLists);
   }
 
   render() {

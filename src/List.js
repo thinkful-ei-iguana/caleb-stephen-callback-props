@@ -4,7 +4,7 @@ import './List.css';
 
 const List = (props) => {
   return (
-    <section className="List">
+    <section className="List" key={props.id}>
       <header className="List-header">
           <h2>{props.header}</h2>
       </header>
@@ -12,6 +12,7 @@ const List = (props) => {
         {props.cards.map((card) => 
           <Card 
             key={card.id}
+            id={card.id}
             title={card.title}
             content={card.content}
             deleteCardProp={props.deleteCardProp}
