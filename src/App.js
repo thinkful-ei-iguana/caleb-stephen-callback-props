@@ -64,8 +64,8 @@ class App extends Component {
     //delete id from cardIds for each of the lists
     //use filter method on array (see example above)
     const newLists = lists.map((list) => {
-      const newList = list.cardIds.filter(cardId => cardId !== id)
-      return newList
+      list.cardIds = list.cardIds.filter(cardId => cardId !== id);
+      return list;
       });
     //delete key value pair from allcards
     //use omit function (see example from curriculum hints)
