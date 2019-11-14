@@ -60,15 +60,16 @@ class App extends Component {
   }
 
   deleteCard = (id) => {
+    console.log("id:", id);
     const { lists, allCards } = this.state;
     //delete id from cardIds for each of the lists
     //use filter method on array (see example above)
     const newLists = lists.forEach(list => 
     {list.cardIds.filter(cardId => {
-      console.log(cardId);
+      //console.log("cardID:", cardId);
       return cardId !== id
     })
-      console.log(id);}
+      }
     );
     //delete key value pair from allcards
     //use omit function (see example from curriculum hints)
@@ -77,8 +78,8 @@ class App extends Component {
       lists: newLists,
       allCards: newCards
     }
-    console.log(newCards);
-    console.log(newLists);
+    // console.log(newCards);
+    // console.log(newLists);
   }
 
   render() {
